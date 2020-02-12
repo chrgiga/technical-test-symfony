@@ -21,7 +21,7 @@ class Event
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="events")
      */
-    private $user;
+    private $users;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -55,7 +55,7 @@ class Event
 
     public function __construct()
     {
-        $this->user = new ArrayCollection();
+        $this->users = new ArrayCollection();
         $this->media = new ArrayCollection();
     }
 
@@ -67,15 +67,15 @@ class Event
     /**
      * @return Collection|User[]
      */
-    public function getUser(): Collection
+    public function getUsers(): Collection
     {
-        return $this->user;
+        return $this->users;
     }
 
     public function addUser(User $user): self
     {
-        if (!$this->user->contains($user)) {
-            $this->user[] = $user;
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
         }
 
         return $this;
@@ -83,8 +83,8 @@ class Event
 
     public function removeUser(User $user): self
     {
-        if ($this->user->contains($user)) {
-            $this->user->removeElement($user);
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
         }
 
         return $this;

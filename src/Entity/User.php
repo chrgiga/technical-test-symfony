@@ -39,12 +39,12 @@ class User
     private $password;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Group", mappedBy="user")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Group", mappedBy="users")
      */
     private $groups;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Event", mappedBy="user")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Event", mappedBy="users")
      */
     private $events;
 
