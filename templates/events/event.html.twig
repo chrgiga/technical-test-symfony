@@ -1,0 +1,19 @@
+{# templates/events/event.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div>
+        <a href="{{ path('events') }}">Return to calendar</a>
+        <h1>{{ event.name }}</h1>
+        <p>
+            Starts at: {{ event.startsAt | date('Y/m/d H:i:s') }} <br>
+            Ends at: {% if event.endsAt %}{{ event.endsAt | date('Y/m/d H:i:s') }}{% else %} -- {% endif %}
+        </p>
+
+        {% for media in event.media %}
+            {% if media.metadata.uri %}
+                <img src="{{ media.metadata.uri }}" alt="{{ media.metadata.uri }}"/>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}
