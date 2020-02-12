@@ -11,14 +11,14 @@ class EventFixtures extends BaseFixture implements DependentFixtureInterface
 {
     public function loadData(ObjectManager $manager)
     {
-        $this->createMany(Event::class, 6, function(Event $event, $count) {
-            $startsDateTime = $this->faker->dateTime;
+        $this->createMany(Event::class, 20, function(Event $event, $count) {
+            $startsDateTime = $this->faker->dateTimeBetween('-1 month', '1 month');
             $endsDateTime = clone $startsDateTime;
             $hours = $this->faker->numberBetween(4, 24);
-            $endsDateTime->format("+$hours hour");
+            $endsDateTime->modify("+$hours hour");
             $randomUser = $this->getRandomReference(User::class);
 
-            $event->setName($this->faker->title)
+            $event->setName($this->faker->text(25))
                 ->setStartsAt($startsDateTime)
                 ->setEndsAt($endsDateTime)
                 ->addUser($randomUser)
