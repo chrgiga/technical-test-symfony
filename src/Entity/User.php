@@ -39,17 +39,17 @@ class User
     private $password;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Group", mappedBy="user_id")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Group", mappedBy="user")
      */
     private $groups;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Event", mappedBy="user_id")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Event", mappedBy="user")
      */
     private $events;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="user_id", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="user", orphanRemoval=true)
      */
     private $media;
 
@@ -135,7 +135,7 @@ class User
     {
         if (!$this->groups->contains($group)) {
             $this->groups[] = $group;
-            $group->addUserId($this);
+            $group->addUser($this);
         }
 
         return $this;
@@ -145,7 +145,7 @@ class User
     {
         if ($this->groups->contains($group)) {
             $this->groups->removeElement($group);
-            $group->removeUserId($this);
+            $group->removeUser($this);
         }
 
         return $this;
@@ -163,7 +163,7 @@ class User
     {
         if (!$this->events->contains($event)) {
             $this->events[] = $event;
-            $event->addUserId($this);
+            $event->addUser($this);
         }
 
         return $this;
@@ -173,7 +173,7 @@ class User
     {
         if ($this->events->contains($event)) {
             $this->events->removeElement($event);
-            $event->removeUserId($this);
+            $event->removeUser($this);
         }
 
         return $this;
@@ -191,7 +191,7 @@ class User
     {
         if (!$this->media->contains($media)) {
             $this->media[] = $media;
-            $media->setUserId($this);
+            $media->setUser($this);
         }
 
         return $this;
@@ -202,8 +202,8 @@ class User
         if ($this->media->contains($media)) {
             $this->media->removeElement($media);
             // set the owning side to null (unless already changed)
-            if ($media->getUserId() === $this) {
-                $media->setUserId(null);
+            if ($media->getUser() === $this) {
+                $media->setUser(null);
             }
         }
 

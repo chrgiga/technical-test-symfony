@@ -30,13 +30,13 @@ class Media
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="media")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $user_id;
+    private $user;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Event", inversedBy="media")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $event_id;
+    private $event;
 
     /**
      * @ORM\Column(type="datetime")
@@ -77,26 +77,26 @@ class Media
         return $this;
     }
 
-    public function getUserId(): ?User
+    public function getUser(): ?User
     {
-        return $this->user_id;
+        return $this->user;
     }
 
-    public function setUserId(?User $user_id): self
+    public function setUser(?User $user): self
     {
-        $this->user_id = $user_id;
+        $this->user = $user;
 
         return $this;
     }
 
-    public function getEventId(): ?Event
+    public function getEvent(): ?Event
     {
-        return $this->event_id;
+        return $this->event;
     }
 
-    public function setEventId(?Event $event_id): self
+    public function setEvent(?Event $event): self
     {
-        $this->event_id = $event_id;
+        $this->event = $event;
 
         return $this;
     }

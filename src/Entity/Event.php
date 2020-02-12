@@ -21,7 +21,7 @@ class Event
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="events")
      */
-    private $user_id;
+    private $user;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -49,13 +49,13 @@ class Event
     private $updated_at;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="event_id", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="event", orphanRemoval=true)
      */
     private $media;
 
     public function __construct()
     {
-        $this->user_id = new ArrayCollection();
+        $this->user = new ArrayCollection();
         $this->media = new ArrayCollection();
     }
 
@@ -67,24 +67,24 @@ class Event
     /**
      * @return Collection|User[]
      */
-    public function getUserId(): Collection
+    public function getUser(): Collection
     {
-        return $this->user_id;
+        return $this->user;
     }
 
-    public function addUserId(User $userId): self
+    public function addUser(User $user): self
     {
-        if (!$this->user_id->contains($userId)) {
-            $this->user_id[] = $userId;
+        if (!$this->user->contains($user)) {
+            $this->user[] = $user;
         }
 
         return $this;
     }
 
-    public function removeUserId(User $userId): self
+    public function removeUser(User $user): self
     {
-        if ($this->user_id->contains($userId)) {
-            $this->user_id->removeElement($userId);
+        if ($this->user->contains($user)) {
+            $this->user->removeElement($user);
         }
 
         return $this;
@@ -138,7 +138,7 @@ class Event
     {
         if (!$this->media->contains($media)) {
             $this->media[] = $media;
-            $media->setEventId($this);
+            $media->setEvent($this);
         }
 
         return $this;
@@ -149,8 +149,8 @@ class Event
         if ($this->media->contains($media)) {
             $this->media->removeElement($media);
             // set the owning side to null (unless already changed)
-            if ($media->getEventId() === $this) {
-                $media->setEventId(null);
+            if ($media->getEvent() === $this) {
+                $media->setEvent(null);
             }
         }
 

@@ -22,7 +22,7 @@ class Group
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="groups")
      */
-    private $user_id;
+    private $users;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -41,7 +41,7 @@ class Group
 
     public function __construct()
     {
-        $this->user_id = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -52,24 +52,24 @@ class Group
     /**
      * @return Collection|User[]
      */
-    public function getUserId(): Collection
+    public function getUsers(): Collection
     {
-        return $this->user_id;
+        return $this->users;
     }
 
-    public function addUserId(User $userId): self
+    public function addUser(User $user): self
     {
-        if (!$this->user_id->contains($userId)) {
-            $this->user_id[] = $userId;
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
         }
 
         return $this;
     }
 
-    public function removeUserId(User $userId): self
+    public function removeUser(User $user): self
     {
-        if ($this->user_id->contains($userId)) {
-            $this->user_id->removeElement($userId);
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
         }
 
         return $this;

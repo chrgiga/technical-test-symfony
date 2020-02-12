@@ -21,7 +21,7 @@ class EventFixtures extends BaseFixture implements DependentFixtureInterface
             $event->setName($this->faker->title)
                 ->setStartsAt($startsDateTime)
                 ->setEndsAt($endsDateTime)
-                ->addUserId($randomUser)
+                ->addUser($randomUser)
                 ->setCreatedAt($this->faker->dateTimeBetween('-100 days', '-1 days'));
         });
 
