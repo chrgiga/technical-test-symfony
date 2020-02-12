@@ -57,6 +57,7 @@ class Event
     {
         $this->users = new ArrayCollection();
         $this->media = new ArrayCollection();
+        $this->created_at = new \DateTime();
     }
 
     public function getId(): ?int

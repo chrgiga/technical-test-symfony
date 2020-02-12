@@ -68,6 +68,7 @@ class User
         $this->groups = new ArrayCollection();
         $this->events = new ArrayCollection();
         $this->media = new ArrayCollection();
+        $this->created_at = new \DateTime();
     }
 
     public function getId(): ?int
