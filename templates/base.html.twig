@@ -6,6 +6,13 @@
     {% block stylesheets %}{% endblock %}
 </head>
 <body>
+{%  if app.request.attributes.get('_route') != 'app_login' %}
+    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+        <p><a class="link" href="{{ path('app_logout') }}">Logout</a></p>
+    {% else %}
+        <p><a class="link" href="{{ path('app_login') }}">Login</a></p>
+    {% endif %}
+{% endif %}
 {% block body %}{% endblock %}
 {% block javascripts %}{% endblock %}
 </body>
