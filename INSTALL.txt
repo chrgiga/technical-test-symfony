@@ -1,0 +1,52 @@
+CONTENTS OF THIS FILE
+---------------------
+
+ * Requirements and notes
+ * Installation
+ * Reinstall
+
+REQUIREMENTS AND NOTES
+----------------------
+
+Symfony 4.4 requires:
+
+ - PHP version: 7.1 or higher
+ - Composer (https://getcomposer.org/download/)
+ - Symfony (https://symfony.com/download)
+
+For more detailed information about Symfony requirements, including a list of
+PHP extensions and configurations that are required, see "Technical Requirements"
+(https://symfony.com/doc/4.2/reference/requirements.html) in the symfony.com online documentation.
+
+INSTALLATION
+------------
+
+1. Download or clone the project.
+
+   git clone https://github.com/chrgiga/technical-test-symfony.git
+
+2. make sure that exists required directories.
+
+   Create if not exists the follow directories (at the root of the project):
+     var/cache
+     var/log
+
+   Make sure both directories have write permission
+
+3. Create the Symfony database.
+
+   Once the database is installed, you will have to indicate the credentials in the corresponding environment file:
+     For example .env.local or .env.prod:
+     DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7
+
+4. Install all dependencies.
+
+    For install al dependencies you need to install it with composer, at the project root path you must to execute the follow command:
+      composer install
+
+REINSTALL
+------------
+
+1. Drop all the tables in your database.
+
+2. Follow the Installation Instructions.

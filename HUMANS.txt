@@ -1,0 +1,11 @@
+/* TEAM */
+
+Developer and owner: Christian Gil.
+Location: Barcelona, Spain.
+
+/* SITE */
+
+Last update: 2020/02/13
+Standards: PHP, SQL, HTML5.
+Components: Symfony, Twig, fullcalendar.io.
+Software: Technical test on a fictional project.
