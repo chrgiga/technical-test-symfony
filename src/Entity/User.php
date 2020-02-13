@@ -41,6 +41,11 @@ class User implements AdvancedUserInterface, Serializable
     private $password;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Role", mappedBy="users")
+     */
+    private $roles;
+
+    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Group", mappedBy="users")
      */
     private $groups;
@@ -73,6 +78,7 @@ class User implements AdvancedUserInterface, Serializable
     public function __construct()
     {
         $this->isActive = true;
+        $this->roles = new ArrayCollection();
         $this->groups = new ArrayCollection();
         $this->events = new ArrayCollection();
         $this->media = new ArrayCollection();
@@ -138,6 +144,21 @@ class User implements AdvancedUserInterface, Serializable
     public function getGroups(): Collection
     {
         return $this->groups;
+    }
+
+    /**
+     * @return []
+     */
+    public function getGroupsId(): array
+    {
+        $groupsId = [];
+
+        /** @var Group $group **/
+        foreach ($this->groups as $group) {
+            $groupsId[] = $group->getId();
+        }
+
+        return $groupsId;
     }
 
     public function addGroup(Group $group): self
@@ -244,11 +265,44 @@ class User implements AdvancedUserInterface, Serializable
     }
 
     /**
-     * @inheritDoc
+     * @var Role $role
+     */
+    public function addRole($role)
+    {
+        if (!$this->roles->contains($role)) {
+            $this->roles->add($role);
+            $role->addUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @var Role $role
+     */
+    public function removeRole($role)
+    {
+        if ($this->roles->contains($role)) {
+            $this->roles->remove($role);
+            $role->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return array
      */
     public function getRoles()
     {
-        return ['ROLE_USER'];
+        $roles = [];
+
+        /** @var Role $role **/
+        foreach ($this->roles as $role) {
+            $roles[] = $role->getName();
+        }
+
+        return $roles;
     }
 
     /**

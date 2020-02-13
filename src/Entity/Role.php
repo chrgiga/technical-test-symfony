@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,6 +24,11 @@ class Role
     private $name;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="roles")
+     */
+    private $users;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $created_at;
@@ -33,6 +40,7 @@ class Role
 
     public function __construct()
     {
+        $this->users = new ArrayCollection();
         $this->created_at = new \DateTime();
     }
 
@@ -49,6 +57,32 @@ class Role
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
+        }
 
         return $this;
     }
